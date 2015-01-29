@@ -17,16 +17,26 @@ class FileDataStore {
 	using FileCatalog = std::map < FileName, FilePathSetIterList >;
 	using FileCatalogIter = FileCatalog::iterator;
 	using ResultList = std::list < FQPN >;
-	
+	using FilePathSetInsertReturn = std::pair<FilePathSetIter, bool>;
+	using FileCatalogInsertReturn = std::pair <FileCatalogIter , bool> ;
+
 	public:
-		ResultList get(FileName);
+		ResultList get(const FileName& fileName);
+		void put(const FQPN& fqpn);
+		void put(const FilePath& filePath, const FileName& fileName);
+		int size();
+		void flush();
 		
 		FileCatalogIter begin();
 		FileCatalogIter end();
+	
+		//DELETE THIS API CALL
+		void fullSizeDet();
 	private:
 		FileCatalog fileCatalog;
 		FilePathSet filePaths;
-
+		FilePathSetIter getFilePathSetIter(const FilePath& filePath);
+		void fqpnSplitter(const FQPN& fqpn, const FilePath& filePath, const FileName& fileName);
 
 };
 #endif
