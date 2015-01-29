@@ -14,7 +14,7 @@
     <ProjectGuid>{381F6F13-0844-4367-9C67-85E9A15505BC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DataStore</RootNamespace>
-    <ProjectName>FileCatalog</ProjectName>
+    <ProjectName>FileDataStore</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
