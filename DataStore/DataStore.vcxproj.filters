@@ -15,12 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataStore.h">
+    <ClInclude Include="FileDataStore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DataStore.cpp">
+    <ClCompile Include="FileDataStore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
