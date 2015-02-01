@@ -9,13 +9,13 @@ class Catalog {
 	using File = String;
 	using FileList = std::vector < File > ;
 
-public:
-	Catalog(FileManager& fileManager, FileDataStore& fileCatalog) : fileManager_(fileManager), fileCatalog_(fileCatalog){};
-	FileDataStore& createFileCatalog();
-	FileDataStore::FileCatalog identifyDupFileSet();
+	public:
+		Catalog( FileManager& fileManager,FileDataStore& fileCatalog ) : fileManager_( fileManager ),fileCatalog_( fileCatalog ) {};
+		FileDataStore& createFileCatalog();
+		FileDataStore::FileCatalog identifyDupFileSet();
 
-private:
-	FileDataStore& fileCatalog_;
-	FileManager& fileManager_;
+	private:
+		FileDataStore& fileCatalog_;
+		FileManager& fileManager_;
 };
 #endif
