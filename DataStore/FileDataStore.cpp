@@ -4,8 +4,8 @@
 FileDataStore::ResultList FileDataStore::get(const FileDataStore::FileName& fileName) {
 	FileDataStore::ResultList resultList;
 	std::string fqpn;
-	if (FileDataStore::fileCatalog.count(fileName) > 0) {
-		FileDataStore::FilePathSetIterList filePathSetIterList = FileDataStore::fileCatalog[fileName];
+	if (FileDataStore::fileCatalog_.count(fileName) > 0) {
+		FileDataStore::FilePathSetIterList filePathSetIterList = FileDataStore::fileCatalog_[fileName];
 		FileDataStore::FilePathSetIter filePathSetIter;
 		for (auto filePathSetIter : filePathSetIterList) {
 			fqpn = (*filePathSetIter).c_str() + std::string("\\") + fileName;
@@ -16,52 +16,52 @@ FileDataStore::ResultList FileDataStore::get(const FileDataStore::FileName& file
 }
 
 void FileDataStore::put(const FileDataStore::FilePath& filePath, const FileDataStore::FileName& fileName) {
-	FileDataStore::FilePathSetInsertReturn fpSetReturn = FileDataStore::filePaths.insert(filePath);
-	if (FileDataStore::fileCatalog.count(fileName) > 0) {
-		FileDataStore::FilePathSetIterList& filePathSetIterList = FileDataStore::fileCatalog[fileName];
+	FileDataStore::FilePathSetInsertReturn fpSetReturn = FileDataStore::filePaths_.insert(filePath);
+	if (FileDataStore::fileCatalog_.count(fileName) > 0) {
+		FileDataStore::FilePathSetIterList& filePathSetIterList = FileDataStore::fileCatalog_[fileName];
 		if (fpSetReturn.second == false && std::find(filePathSetIterList.begin(), filePathSetIterList.end(), fpSetReturn.first) != filePathSetIterList.end()) {
 			//TODO: EXCEPTION
 			std::cout << "***********EXCEPTION************* \n";
 		}
 		else {
-			FileDataStore::FilePathSetIterList& filePathSetIterList = FileDataStore::fileCatalog[fileName];
+			FileDataStore::FilePathSetIterList& filePathSetIterList = FileDataStore::fileCatalog_[fileName];
 			(filePathSetIterList).push_back(fpSetReturn.first);
 		}
 	}
 	else {
 		FileDataStore::FilePathSetIterList newFilePathsList;
 		newFilePathsList.push_back(fpSetReturn.first);
-		FileDataStore::fileCatalog.insert(std::pair<FileName, FilePathSetIterList>(fileName, newFilePathsList));
+		FileDataStore::fileCatalog_.insert(std::pair<FileName, FilePathSetIterList>(fileName, newFilePathsList));
 	}
 
 }
 
 int FileDataStore::size() {
-	return FileDataStore::fileCatalog.size();
+	return FileDataStore::fileCatalog_.size();
 }
 
 void FileDataStore::flush() {
-	FileDataStore::filePaths.clear();
-	FileDataStore::fileCatalog.clear();
+	FileDataStore::filePaths_.clear();
+	FileDataStore::fileCatalog_.clear();
 }
 
 FileDataStore::FileCatalogIter FileDataStore::begin() {
-	return FileDataStore::fileCatalog.begin();
+	return FileDataStore::fileCatalog_.begin();
 }
 
 FileDataStore::FileCatalogIter FileDataStore::end() {
-	return FileDataStore::fileCatalog.end();
+	return FileDataStore::fileCatalog_.end();
 }
 
 FileDataStore::FilePathSetIter FileDataStore::getFilePathSetIter(const FileDataStore::FilePath& filePath) {
-	return FileDataStore::filePaths.find(filePath);
+	return FileDataStore::filePaths_.find(filePath);
 }
 #ifdef TEST_ENV
 void FileDataStore::dump() {
 	std::cout << "Dumping data from catalog & List \n";
-	for (auto fileCatalogItem : FileDataStore::fileCatalog) {
+	for (auto fileCatalogItem : FileDataStore::fileCatalog_) {
 		std::cout << fileCatalogItem.first << "\t";
-		FileDataStore::FilePathSetIterList filePathSetIterList = FileDataStore::fileCatalog[fileCatalogItem.first];
+		FileDataStore::FilePathSetIterList filePathSetIterList = FileDataStore::fileCatalog_[fileCatalogItem.first];
 
 		for (auto filePathList : filePathSetIterList)
 			std::cout << (*filePathList).c_str() << "\n" << "\t";
@@ -69,7 +69,7 @@ void FileDataStore::dump() {
 	}
 
 	std::cout << "\n" << "Dumping data from FilePathSet" << "\n";
-	for (auto path : FileDataStore::filePaths)
+	for (auto path : FileDataStore::filePaths_)
 		std::cout << path << "\n";
 }
 #endif
