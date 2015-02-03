@@ -10,12 +10,14 @@ class Catalog {
 	using FileList = std::vector < File > ;
 
 	public:
-		Catalog( FileManager& fileManager,FileDataStore& fileCatalog ) : fileManager_( fileManager ),fileCatalog_( fileCatalog ) {};
-		FileDataStore& createFileCatalog();
-		FileDataStore::FileCatalog identifyDupFileSet();
+	Catalog( FileManager& fileManager,FileDataStore& fileCatalog ) : fileManager_( fileManager ),fileCatalog_( fileCatalog ) {};
+	FileDataStore& createFileCatalog();
+	FileDataStore::FileCatalog identifyDupFileSet();
+	FileDataStore& getCatalog() { return fileCatalog_; };
+	FileDataStore::ResultList searchCatalog( const String& searchText );
 
 	private:
-		FileDataStore& fileCatalog_;
-		FileManager& fileManager_;
+	FileDataStore& fileCatalog_;
+	FileManager& fileManager_;
 };
 #endif

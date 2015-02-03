@@ -14,10 +14,7 @@ class FileManager {
 	using FileList = std::vector < File > ;
 
 	public:
-		FileManager( const String& path,const String& filePattern,bool recursiveSearch ) {
-			searchPath_ = path;
-			patterns_.push_back( filePattern );
-		};
+		FileManager( const String& path,const String& filePattern,bool recursiveSearch );
 
 		FileManager( const String& path,const String& filePattern ) {
 			FileManager( path,filePattern,false );
@@ -25,6 +22,10 @@ class FileManager {
 
 		FileManager( const String& path ) {
 			FileManager( path,"*.*" );
+		};
+		
+		FileManager() {
+			FileManager( ".");
 		};
 
 		void addPattern( const String& pattern );

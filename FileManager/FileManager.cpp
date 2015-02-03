@@ -1,8 +1,11 @@
 #include "FileManager.h"
 #include <iostream>
 #include "../FileSystem/FileSystem.h"
+#include "../Catalog/Catalog.h"
 
 FileManager::FileManager( const String& path,const String& filePattern,bool recursiveSearch ) {
+	searchPath_ = path;
+	patterns_.push_back( filePattern );
 	walkThrough( path,recursiveSearch );
 }
 
@@ -31,8 +34,6 @@ void FileManager::addPattern( const String& pattern ) {
 	}
 	patterns_.push_back( pattern );
 }
-
-
 
 #ifdef TEST_FILEMANAGER
 int main() {

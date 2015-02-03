@@ -13,7 +13,6 @@ class FileDataStore {
 	using FQPN = FullyQualifiedFileName;
 	using FilePathSet = std::set < FilePath > ;
 	using FilePathSetIter = FilePathSet::iterator;
-	using ResultList = std::list < FQPN > ;
 	using FilePathSetInsertReturn = std::pair < FilePathSetIter,bool > ;
 
 	public:
@@ -21,6 +20,7 @@ class FileDataStore {
 		using FileCatalog = std::map < FileName,FilePathSetIterList > ;
 		using FileCatalogIter = FileCatalog::iterator;
 		using FileCatalogInsertReturn = std::pair < FileCatalogIter,bool > ;
+		using ResultList = std::list < FQPN >;
 
 		ResultList get( const FileName& fileName );
 		void put( const FilePath& filePath,const FileName& fileName );
