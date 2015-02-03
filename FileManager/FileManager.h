@@ -1,8 +1,8 @@
 #ifndef FILEMANAGER_H
 #define FILEMANAGER_H
 
-#include "../DataStore/FileDataStore.h"
 #include <vector>
+#include "../DataStore/FileDataStore.h"
 
 class FileManager {
 	using FileCatalogIter = FileDataStore::FileCatalogIter;

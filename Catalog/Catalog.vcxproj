@@ -84,17 +84,6 @@
   <ItemGroup>
     <ClInclude Include="Catalog.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataStore\DataStore.vcxproj">
-      <Project>{381f6f13-0844-4367-9c67-85e9a15505bc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\FileManager\FileManager.vcxproj">
-      <Project>{ac131bcc-5e92-4a29-9f23-610c20a4a5c5}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\FileSystem\FileSystem.vcxproj">
-      <Project>{ded981ad-6214-4548-8f75-6b7333197851}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

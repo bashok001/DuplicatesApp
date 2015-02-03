@@ -1,7 +1,6 @@
-#include "FileManager.h"
 #include <iostream>
+#include "FileManager.h"
 #include "../FileSystem/FileSystem.h"
-#include "../Catalog/Catalog.h"
 
 FileManager::FileManager( const String& path,const String& filePattern,bool recursiveSearch ) {
 	searchPath_ = path;
