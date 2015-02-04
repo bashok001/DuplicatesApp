@@ -4,7 +4,14 @@
 #include "../FileSystem/FileSystem.h"
 
 FileDataStore& Catalog::createFileCatalog() {
+#ifdef TEST_ENV
+	std::cout << "Creating a Catalog \n";
+	std::cout << "Count is: " << Catalog::fileManager_.getSearchSpace().size() << "\n";
+#endif
 	for( auto directory : Catalog::fileManager_.getSearchSpace() ) {
+#ifdef TEST_ENV
+		std::cout << "Processing Directory, "<<directory<<" \n";
+#endif
 		for( auto pattern : Catalog::fileManager_.getSearchPatterns() ) {
 			Catalog::FileList files = FileSystem::Directory::getFiles( directory,pattern );
 			for( auto file : files )
@@ -50,13 +57,22 @@ FileDataStore::ResultList Catalog::searchCatalog( const String& searchText ) {
 int main() {
 	int TEST_SUCCESS = 1;
 	std::cout << "Testing Catalog Initiated \n";
-	FileManager fileManager;
+	FileManager fileManager("D:/Spring 2015 Paper Reading","*",true);
+	//fileManager.addPattern( "*.cpp" );
 	FileDataStore fds;
 	Catalog catalog( fileManager,fds );
 
 	catalog.createFileCatalog();
-
 	fds.dump();
+	
+	for( auto file : catalog.identifyDupFileSet() ) {
+		std::cout << " \n \n" << file.first << "\n";
+	}
+
+	for( auto file : catalog.searchCatalog("android") ) {
+		std::cout << " \n \n" << file << "\n";
+	}
+
 	return 0;
 }
 #endif

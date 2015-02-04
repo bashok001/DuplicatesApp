@@ -69,6 +69,8 @@ void FileDataStore::dump() {
 	std::cout << "\n" << "Dumping data from FilePathSet" << "\n";
 	for( auto path : FileDataStore::filePaths_ )
 		std::cout << path << "\n";
+	
+	std::cout << "\n\n\n*****" << fileCatalog_.size();
 }
 #endif
 
