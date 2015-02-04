@@ -39,7 +39,7 @@ FileDataStore::ResultList Catalog::searchCatalog( const String& searchText ) {
 			FileSystem::File outTestFile( file );
 			outTestFile.open( FileSystem::File::in );
 			if( outTestFile.isGood() ) {
-				size_t pos=outTestFile.getLine().find( searchText );
+				size_t pos=outTestFile.readAll().find( searchText );
 				if( pos != std::string::npos ) {
 					resultList.push_back(file);
 				}
@@ -69,7 +69,7 @@ int main() {
 		std::cout << " \n \n" << file.first << "\n";
 	}
 
-	for( auto file : catalog.searchCatalog("android") ) {
+	for( auto file : catalog.searchCatalog("ashok") ) {
 		std::cout << " \n \n" << file << "\n";
 	}
 
