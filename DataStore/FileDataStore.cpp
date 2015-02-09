@@ -54,6 +54,7 @@ FileDataStore::FileCatalogIter FileDataStore::end() {
 FileDataStore::FilePathSetIter FileDataStore::getFilePathSetIter( const FileDataStore::FilePath& filePath ) {
 	return FileDataStore::filePaths_.find( filePath );
 }
+
 #ifdef TEST_ENV
 void FileDataStore::dump() {
 	std::cout << "Dumping data from catalog & List \n";
@@ -70,7 +71,7 @@ void FileDataStore::dump() {
 	for( auto path : FileDataStore::filePaths_ )
 		std::cout << path << "\n";
 	
-	std::cout << "\n\n\n*****" << fileCatalog_.size();
+	std::cout << "\n\n\n*****Size of Catalog is: " << fileCatalog_.size() << "\n";
 }
 #endif
 

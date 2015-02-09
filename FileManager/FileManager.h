@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "../DataStore/FileDataStore.h"
+#include "../FileSystem/FileSystem.h"
 
 class FileManager {
 	using FileCatalogIter = FileDataStore::FileCatalogIter;
@@ -14,27 +15,27 @@ class FileManager {
 	using FileList = std::vector < File > ;
 
 	public:
-		FileManager( const String& path,const String& filePattern,bool recursiveSearch );
+	FileManager( const String& path,const String& filePattern,bool recursiveSearch,FileDataStore::FilePathSet filePathSet );
 
-		FileManager( const String& path,const String& filePattern ) :FileManager( path,filePattern,false ) {};
-		
-		FileManager( const String& path ) :FileManager( path,"*.*" ) {};
-		
-		FileManager() :FileManager( "." ) {};
+	FileManager( const String& path,const String& filePattern,FileDataStore::FilePathSet filePathSet ) :FileManager( path,filePattern,false,filePathSet ) {};
 
-		void addPattern( const String& pattern );
-		inline DirectoryList getSearchSpace() { return directoryList_; };
-		inline Patterns getSearchPatterns() { return patterns_; };
-		
+	FileManager( const String& path,FileDataStore::FilePathSet filePathSet ) :FileManager( path,"*.*",filePathSet ) {};
+
+	FileManager( FileDataStore::FilePathSet  filePathSet ) :FileManager( FileSystem::Directory::getCurrentDirectory(),filePathSet ) {};
+
+	void addPattern( const String& pattern );
+	inline FileDataStore::FilePathSet getSearchSpace() { return filePathSet_; };
+	inline Patterns getSearchPatterns() { return patterns_; };
+
 #ifdef TEST_ENV
-		void dump();
+	void dump();
 #endif
 
 	private:
-		Patterns patterns_;
-		DirectoryList directoryList_;
-		String searchPath_;
-		void walkThrough( const String& dirName,bool recursiveSearch );
+	Patterns patterns_;
+	FileDataStore::FilePathSet filePathSet_;
+	String searchPath_;
+	void walkThrough( const String& dirName,bool recursiveSearch );
 };
 
 #endif

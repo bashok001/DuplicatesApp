@@ -11,11 +11,11 @@ class FileDataStore {
 	using FileName = std::string;
 	using FullyQualifiedFileName = std::string;
 	using FQPN = FullyQualifiedFileName;
-	using FilePathSet = std::set < FilePath > ;
-	using FilePathSetIter = FilePathSet::iterator;
-	using FilePathSetInsertReturn = std::pair < FilePathSetIter,bool > ;
 
 	public:
+		using FilePathSet = std::set < FilePath >;
+		using FilePathSetIter = FilePathSet::iterator;
+		using FilePathSetInsertReturn = std::pair < FilePathSetIter,bool >;
 		using FilePathSetIterList = std::list < FilePathSetIter > ;
 		using FileCatalog = std::map < FileName,FilePathSetIterList > ;
 		using FileCatalogIter = FileCatalog::iterator;
@@ -24,6 +24,7 @@ class FileDataStore {
 
 		ResultList get( const FileName& fileName );
 		void put( const FilePath& filePath,const FileName& fileName );
+		FilePathSet getFilePathSet() { return filePaths_; };
 		int size();
 		void flush();
 

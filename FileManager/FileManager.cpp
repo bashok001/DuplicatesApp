@@ -1,61 +1,55 @@
 #include <iostream>
 #include "FileManager.h"
-#include "../FileSystem/FileSystem.h"
 
-FileManager::FileManager( const String& path,const String& filePattern,bool recursiveSearch ) {
-#ifdef TEST_ENV
-	std::cout << "FileManager walkthru with " << path << " and " << filePattern << " and " << recursiveSearch << "\n";
-#endif
 
+FileManager::FileManager( const String& path,const String& filePattern,bool recursiveSearch,FileDataStore::FilePathSet filePathSet ) {
+	filePathSet_ = filePathSet;
 	searchPath_ = path;
-	patterns_.push_back( filePattern );
-	walkThrough( path,recursiveSearch);
-	if( recursiveSearch ) {
-		FileManager::directoryList_.push_back( path );
-	}
-#ifdef TEST_ENV
-	for( auto path : directoryList_ )
-		std::cout << "From directory list " << path << "\n";
-#endif
-
+	if( searchPath_ == "" )
+		searchPath_ = FileSystem::Directory::getCurrentDirectory();
+	if( filePattern == "" )
+		patterns_.push_back( "*.*" );
+	else
+		patterns_.push_back( filePattern );
+	walkThrough( searchPath_,recursiveSearch );
+	if( recursiveSearch )
+		FileManager::filePathSet_.insert( searchPath_ );
 }
 
-void FileManager::walkThrough( const String& path,bool recursiveSearch) {
-	if( !recursiveSearch ) {
-		FileManager::directoryList_.push_back( path );
-	} else {
-		std::cout << "Path being Explored: ************* " << path << "\n";
+void FileManager::walkThrough( const String& path,bool recursiveSearch ) {
+	if( !recursiveSearch )
+		FileManager::filePathSet_.insert( path );
+	else {
 		FileManager::DirectoryList directoryList = FileSystem::Directory::getDirectories( path );
-		if( std::find( directoryList.begin(),directoryList.end(),"." ) != directoryList.end() ) {
+		if( std::find( directoryList.begin(),directoryList.end(),"." ) != directoryList.end() )
 			directoryList.erase( std::find( directoryList.begin(),directoryList.end(),"." ) );
-		}
 
-		if( std::find( directoryList.begin(),directoryList.end(),".." ) != directoryList.end() ) {
+		if( std::find( directoryList.begin(),directoryList.end(),".." ) != directoryList.end() )
 			directoryList.erase( std::find( directoryList.begin(),directoryList.end(),".." ) );
-		}
 
-		if( directoryList.size() == 0 ) {
+		if( directoryList.size() == 0 )
 			return;
-		}
 
-		for( auto directory : directoryList ) {			
+		for( auto directory : directoryList ) {
 			FileSystem::Directory::setCurrentDirectory( path );
-			FileManager::directoryList_.push_back( FileSystem::Path::getFullFileSpec( directory ) );
-			std::cout << "Pushed " << directory << " into directoryList \n";
+			FileManager::filePathSet_.insert( FileSystem::Path::getFullFileSpec( directory ) );
 			walkThrough( FileSystem::Path::getFullFileSpec( directory ),true );
 		}
 	}
 }
 
 void FileManager::addPattern( const String& pattern ) {
-	if( patterns_.size() == 1 && patterns_[ 0 ] == "*.*" ) {
+	if( patterns_.size() == 1 && patterns_[ 0 ] == "*.*" )
 		patterns_.pop_back();
-	}
-	patterns_.push_back( pattern );
+	if( pattern.find( "." ) == 0 )
+		patterns_.push_back( "*" + pattern );
+	else
+		patterns_.push_back( pattern );
 }
 
 #ifdef TEST_FILEMANAGER
 int main() {
 	std::cout << "Testing Filemanager initiated";
+	return 0;
 }
 #endif
