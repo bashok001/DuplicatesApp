@@ -15,7 +15,7 @@ class Catalog {
 	FileDataStore::FileCatalog identifyDupFileSet();
 	FileDataStore& getCatalog() { return fileCatalog_; };
 	FileDataStore::ResultList searchCatalog( const String& searchText );
-	FileDataStore::ResultList reSearchCatalog( const String& searchText );
+	FileDataStore::ResultList limitedCatalogSearch( const String& searchText );
 	
 
 	private:

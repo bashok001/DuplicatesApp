@@ -45,7 +45,7 @@ FileDataStore::ResultList Catalog::searchCatalog( const String& searchText ) {
 	return resultList;
 }
 
-FileDataStore::ResultList Catalog::reSearchCatalog( const String& searchText ) {
+FileDataStore::ResultList Catalog::limitedCatalogSearch( const String& searchText ) {
 	FileDataStore::ResultList resultList;
 	for( auto pattern : Catalog::fileManager_.getSearchPatterns() ) {
 		transformToRegex( pattern );
@@ -113,14 +113,14 @@ int main() {
 
 	fileManager.addPattern( "*.cpp" );
 
-	for( auto file : catalog.reSearchCatalog( "ashok" ) ) {
+	for( auto file : catalog.limitedCatalogSearch( "ashok" ) ) {
 		std::cout << " \n \nNew FileMatch: " << file << "\n";
 	}
 
 	fileManager.addPattern( "*.?pp" );
-	fileManager.addPattern( "*.txt" );
+	fileManager.addPattern( "*.h" );
 
-	for( auto file : catalog.reSearchCatalog( "ashok" ) ) {
+	for( auto file : catalog.limitedCatalogSearch( "ashok" ) ) {
 		std::cout << " \n \nSecond New FileMatch: " << file << "\n";
 	}
 	return 0;
