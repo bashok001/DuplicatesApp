@@ -26,6 +26,7 @@ class FileManager {
 	void addPattern( const String& pattern );
 	inline FileDataStore::FilePathSet getSearchSpace() { return filePathSet_; };
 	inline Patterns getSearchPatterns() { return patterns_; };
+	void FileManager::reInitializePatterns();
 
 #ifdef TEST_ENV
 	void dump();

@@ -57,7 +57,7 @@ FileDataStore::FilePathSetIter FileDataStore::getFilePathSetIter( const FileData
 
 #ifdef TEST_ENV
 void FileDataStore::dump() {
-	std::cout << "Dumping data from catalog & List \n";
+	std::cout << "Dumping data from Catalog & Paths list \n";
 	for( auto fileCatalogItem : FileDataStore::fileCatalog_ ) {
 		std::cout << fileCatalogItem.first << "\t";
 		FileDataStore::FilePathSetIterList filePathSetIterList = FileDataStore::fileCatalog_[ fileCatalogItem.first ];
@@ -89,48 +89,36 @@ int main() {
 	} else {
 		TEST_SUCCESS = TEST_SUCCESS*FAIL;
 	}
-
 	fds.put( "C:","ASHOK" );
 	fds.put( "C:","ASHOK" );
 	fds.put( "E:","ASHOK" );
-
 	fds.put( "D:","ASHOK4" );
 	fds.put( "E:","ASHOK4" );
-
 	fds.put( "C:","ASHOK2" );
-
 	fds.put( "C:","ASHOK3" );
-
 	fds.put( "C:","ASHOK5" );
 	fds.put( "D:","ASHOK5" );
 	fds.put( "E:","ASHOK5" );
 	fds.put( "F:","ASHOK5" );
 	fds.put( "G:","ASHOK5" );
-
 	if( fds.size() == 5 ) {
 		TEST_SUCCESS = TEST_SUCCESS*SUCCESS;
 	} else {
 		TEST_SUCCESS = TEST_SUCCESS*FAIL;
 	}
-
 	std::list < std::string > list = fds.get( "ASHOK5" );
 	if( list.size() == 5 ) {
 		TEST_SUCCESS = TEST_SUCCESS*SUCCESS;
 	} else {
 		TEST_SUCCESS = TEST_SUCCESS*FAIL;
 	}
-
 	fds.dump();
-
 	fds.flush();
-
 	if( fds.size() == 0 ) {
 		TEST_SUCCESS = TEST_SUCCESS*SUCCESS;
 	} else {
 		TEST_SUCCESS = TEST_SUCCESS*FAIL;
 	}
-
-
 	std::cout << ( ( TEST_SUCCESS ) ? "All Tests Passed\n" : "Something Failed\n" );
 	return TEST_SUCCESS;
 }
