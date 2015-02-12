@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D387DC7D-CA10-47BC-B703-709BB03FC3A2}</ProjectGuid>
+    <ProjectGuid>{12B4AD86-B27C-46EE-A3BC-DADEB6E098D6}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Display</RootNamespace>
+    <RootNamespace>InputParser</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -51,7 +51,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);TEST_DISPLAY;TEST_ENV</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions);TEST_INPUTPARSER;TEST_ENV</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -76,11 +76,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Display.h" />
+    <ClCompile Include="..\FileSystem\FileSystem.cpp" />
+    <ClCompile Include="InputParser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\DataStore\FileDataStore.cpp" />
-    <ClCompile Include="Display.cpp" />
+    <ClInclude Include="InputParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

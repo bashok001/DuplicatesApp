@@ -8,11 +8,13 @@ FileManager::FileManager( const String& path,const String& filePattern,bool recu
 	if( searchPath_ == "" ) {
 		searchPath_ = FileSystem::Directory::getCurrentDirectory();
 	}
+
 	if( filePattern == "" ) {
 		patterns_.push_back( "*.*" );
 	} else {
 		patterns_.push_back( filePattern );
 	}
+
 	walkThrough( searchPath_,recursiveSearch );
 	if( recursiveSearch ) {
 		FileManager::filePathSet_.insert( searchPath_ );

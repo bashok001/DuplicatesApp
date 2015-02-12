@@ -1,5 +1,21 @@
+//*************************************************************************//
+// FileDataStore.cpp - Implementation for storage and cataloging operations//
+// ver 1.0                                                                 //
+// ----------------------------------------------------------------------- //
+// copyleft © Ashok Bommisetti, 2015                                       //
+// No guarantees on anything; But free to modify, copy and distribute      //
+// ----------------------------------------------------------------------- //
+// Author:      Ashok Bommisetti							               //
+// First Published (mm-dd-yyyy): 02-11-2015 			                   //
+//*************************************************************************//
+/*
+* This is a part of Duplicates App, designed and developed to search and find duplicate files in the system.
+*/
+
 #include "FileDataStore.h"
 #include <iostream>
+
+// Lookup all the files in the store with the specified name
 
 FileDataStore::ResultList FileDataStore::get( const FileDataStore::FileName& fileName ) {
 	FileDataStore::ResultList resultList;
@@ -15,13 +31,13 @@ FileDataStore::ResultList FileDataStore::get( const FileDataStore::FileName& fil
 	return resultList;
 }
 
+// Store file name and multiple file paths where the file can be found along with preserving the relationship between the two.
+
 void FileDataStore::put( const FileDataStore::FilePath& filePath,const FileDataStore::FileName& fileName ) {
 	FileDataStore::FilePathSetInsertReturn fpSetReturn = FileDataStore::filePaths_.insert( filePath );
 	if( FileDataStore::fileCatalog_.count( fileName ) > 0 ) {
 		FileDataStore::FilePathSetIterList& filePathSetIterList = FileDataStore::fileCatalog_[ fileName ];
 		if( fpSetReturn.second == false && std::find( filePathSetIterList.begin(),filePathSetIterList.end(),fpSetReturn.first ) != filePathSetIterList.end() ) {
-			//TODO: EXCEPTION
-			std::cout << "***********EXCEPTION************* \n";
 		} else {
 			FileDataStore::FilePathSetIterList& filePathSetIterList = FileDataStore::fileCatalog_[ fileName ];
 			( filePathSetIterList ).push_back( fpSetReturn.first );
@@ -34,27 +50,36 @@ void FileDataStore::put( const FileDataStore::FilePath& filePath,const FileDataS
 
 }
 
+// Returns the size of the store
+
 int FileDataStore::size() {
 	return FileDataStore::fileCatalog_.size();
 }
 
+// Flush existing information and start brand new
 void FileDataStore::flush() {
 	FileDataStore::filePaths_.clear();
 	FileDataStore::fileCatalog_.clear();
 }
 
+// begin() : iterator to the beginning of the map used by the store
 FileDataStore::FileCatalogIter FileDataStore::begin() {
 	return FileDataStore::fileCatalog_.begin();
 }
 
+// end() : Iterator to the end of the map used by the store
 FileDataStore::FileCatalogIter FileDataStore::end() {
 	return FileDataStore::fileCatalog_.end();
 }
 
+// Provides access to directory information stored in the store
 FileDataStore::FilePathSetIter FileDataStore::getFilePathSetIter( const FileDataStore::FilePath& filePath ) {
 	return FileDataStore::filePaths_.find( filePath );
 }
 
+
+// AVAILABLE ONLY IN TEST ENVIRONMENT
+// Shows complete dataset from the store on the console
 #ifdef TEST_ENV
 void FileDataStore::dump() {
 	std::cout << "Dumping data from Catalog & Paths list \n";
@@ -75,6 +100,7 @@ void FileDataStore::dump() {
 }
 #endif
 
+// --------------------TEST STUB-----------------------------
 #ifdef TEST_DATASTORE
 #define SUCCESS 1
 #define FAIL 0

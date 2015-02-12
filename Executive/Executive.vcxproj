@@ -76,6 +76,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Catalog\Catalog.cpp" />
+    <ClCompile Include="..\DataStore\FileDataStore.cpp" />
+    <ClCompile Include="..\Display\Display.cpp" />
+    <ClCompile Include="..\FileManager\FileManager.cpp" />
+    <ClCompile Include="..\FileSystem\FileSystem.cpp" />
+    <ClCompile Include="..\InputParser\InputParser.cpp" />
+    <ClCompile Include="DuplicatesAppExecutive.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DuplicatesAppExecutive.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
