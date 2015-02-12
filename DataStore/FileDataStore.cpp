@@ -16,7 +16,6 @@
 #include <iostream>
 
 // Lookup all the files in the store with the specified name
-
 FileDataStore::ResultList FileDataStore::get( const FileDataStore::FileName& fileName ) {
 	FileDataStore::ResultList resultList;
 	std::string fqpn;
@@ -31,8 +30,7 @@ FileDataStore::ResultList FileDataStore::get( const FileDataStore::FileName& fil
 	return resultList;
 }
 
-// Store file name and multiple file paths where the file can be found along with preserving the relationship between the two.
-
+// Store file name and multiple file paths where the file can be found along with preserving the relationship between the two
 void FileDataStore::put( const FileDataStore::FilePath& filePath,const FileDataStore::FileName& fileName ) {
 	FileDataStore::FilePathSetInsertReturn fpSetReturn = FileDataStore::filePaths_.insert( filePath );
 	if( FileDataStore::fileCatalog_.count( fileName ) > 0 ) {
@@ -51,12 +49,11 @@ void FileDataStore::put( const FileDataStore::FilePath& filePath,const FileDataS
 }
 
 // Returns the size of the store
-
 int FileDataStore::size() {
 	return FileDataStore::fileCatalog_.size();
 }
 
-// Flush existing information and start brand new
+// Flush existing information and start fresh
 void FileDataStore::flush() {
 	FileDataStore::filePaths_.clear();
 	FileDataStore::fileCatalog_.clear();

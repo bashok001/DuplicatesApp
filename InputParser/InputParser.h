@@ -41,7 +41,7 @@ class InputParser {
 
 	private:
 		// run requirements are stored in bit combination. Stored in the format SearchNeeded | ShowDuplicates | Recursive
-		// Vary from 000 - Nothing needed to 111 - Every option needed for the run
+		// Vary from 000 (Nothing needed) to 111 (Every option needed) for the run
 		std::bitset<3> runRequirements_;
 		String searchPath_;
 		String searchText_;
