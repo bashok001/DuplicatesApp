@@ -1,9 +1,25 @@
+//*************************************************************************//
+// DuplicatesAppExectuive.cpp - Implementation for Duplicates App Executive//
+// ver 1.0                                                                 //
+// ----------------------------------------------------------------------- //
+// copyleft © Ashok Bommisetti, 2015                                       //
+// No guarantees on anything; But free to modify, copy and distribute      //
+// ----------------------------------------------------------------------- //
+// Author:      Ashok Bommisetti							               //
+// First Published (mm-dd-yyyy): 02-11-2015 			                   //
+//*************************************************************************//
+
+/*
+* This is a part of Duplicates App, designed and developed to search and find duplicate files in the system.
+*/
+
 #include "DuplicatesAppExecutive.h"
 #include <vector>
 #include <iostream>
 #include <sstream>
 #include "../DataStore/FileDataStore.h"
 
+// MAIN FUNCTION: Takes in arguments and calles all relevant modules to extract the information needed.
 int main( int argc,char* argv[] ) {
 	std::vector<std::string> args( argv + 1,argv + argc + !argc );
 	InputParser ip;
@@ -42,6 +58,7 @@ int main( int argc,char* argv[] ) {
 	dupAppExec.refineSearch( catalog );
 }
 
+// Method to prompt for new search patterns and return search results from catalog, NOT filesystem
 void DuplicatesAppExecutive::refineSearch( Catalog& catalog ) {
 	std::string newSearchPhrase;
 	std::string newSearchPatterns;
@@ -71,6 +88,7 @@ void DuplicatesAppExecutive::refineSearch( Catalog& catalog ) {
 	refineSearch( catalog );
 }
 
+// 011 : Method when input param configuration is: /f - Not Present /d - Present /s - Present
 void DuplicatesAppExecutive::recursiveDuplicateCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog catalog ) {
 	FileManager fileManager( ip.getSearchPath(),"*.*",true,fds.getFilePathSet() );
 	for( auto pattern : ip.getPatterns() ) {
@@ -83,7 +101,7 @@ void DuplicatesAppExecutive::recursiveDuplicateCall( FileDataStore fds,Display d
 	display.showSummary( catalog.getCatalog().getFilePathSet().size(),catalog.getCatalog().size() );
 }
 
-
+// 000 : Method when input param configuration is: /f - Not Present /d - Not Present /s - Not Present
 void DuplicatesAppExecutive::noSwitchCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog catalog ) {
 	FileManager fileManager( ip.getSearchPath(),"*.*",false,fds.getFilePathSet() );
 	for( auto pattern : ip.getPatterns() ) {
@@ -95,6 +113,7 @@ void DuplicatesAppExecutive::noSwitchCall( FileDataStore fds,Display display,Inp
 	display.showSummary( catalog.getCatalog().getFilePathSet().size(),catalog.getCatalog().size() );
 }
 
+// 001 : Method when input param configuration is: /f - Not Present /d - Not Present /s - Present
 void DuplicatesAppExecutive::noSwitchRecursiveCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog catalog ) {
 	FileManager fileManager( ip.getSearchPath(),"*.*",true,fds.getFilePathSet() );
 	for( auto pattern : ip.getPatterns() ) {
@@ -106,6 +125,7 @@ void DuplicatesAppExecutive::noSwitchRecursiveCall( FileDataStore fds,Display di
 	display.showSummary( catalog.getCatalog().getFilePathSet().size(),catalog.getCatalog().size() );
 }
 
+// 010 : Method when input param configuration is: /f - Not Present /d - Present /s - Not Present
 void DuplicatesAppExecutive::noRecursiveDuplicateCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog catalog ) {
 	FileManager fileManager( ip.getSearchPath(),"*.*",false,fds.getFilePathSet() );
 	for( auto pattern : ip.getPatterns() ) {
@@ -117,7 +137,7 @@ void DuplicatesAppExecutive::noRecursiveDuplicateCall( FileDataStore fds,Display
 	display.showSummary( catalog.getCatalog().getFilePathSet().size(),catalog.getCatalog().size() );
 }
 
-
+// 100 : Method when input param configuration is: /f - Present /d - Not Present /s - Not Present
 void DuplicatesAppExecutive::noSwitchSearchCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog catalog ) {
 	FileManager fileManager( ip.getSearchPath(),"*.*",false,fds.getFilePathSet() );
 	for( auto pattern : ip.getPatterns() ) {
@@ -130,6 +150,7 @@ void DuplicatesAppExecutive::noSwitchSearchCall( FileDataStore fds,Display displ
 	display.showSummary( catalog.getCatalog().getFilePathSet().size(),catalog.getCatalog().size() );
 }
 
+// 101 : Method when input param configuration is: /f - Present /d - Not Present /s - Present
 void DuplicatesAppExecutive::recursiveSearchCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog catalog ) {
 	FileManager fileManager( ip.getSearchPath(),"*.*",true,fds.getFilePathSet() );
 	for( auto pattern : ip.getPatterns() ) {
@@ -142,6 +163,7 @@ void DuplicatesAppExecutive::recursiveSearchCall( FileDataStore fds,Display disp
 	display.showSummary( catalog.getCatalog().getFilePathSet().size(),catalog.getCatalog().size() );
 }
 
+// 110 : Method when input param configuration is: /f - Present /d - Present /s - Not Present
 void DuplicatesAppExecutive::noRecursiveSearchDuplicateCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog catalog ) {
 	FileManager fileManager( ip.getSearchPath(),"*.*",false,fds.getFilePathSet() );
 	for( auto pattern : ip.getPatterns() ) {
@@ -155,6 +177,7 @@ void DuplicatesAppExecutive::noRecursiveSearchDuplicateCall( FileDataStore fds,D
 	display.showSummary( catalog.getCatalog().getFilePathSet().size(),catalog.getCatalog().size() );
 }
 
+// 111 : Method when input param configuration is: /f - Present /d - Present /s - Present
 void DuplicatesAppExecutive::recursiveSearchDuplicateCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog catalog ) {
 	FileManager fileManager( ip.getSearchPath(),"*.*",true,fds.getFilePathSet() );
 	for( auto pattern : ip.getPatterns() ) {

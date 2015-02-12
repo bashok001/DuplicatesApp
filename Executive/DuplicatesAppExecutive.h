@@ -1,5 +1,21 @@
 #ifndef DUPLICATESAPPEXECUTIVE_H
 #define DUPLICATESAPPEXECUTIVE_H
+//*************************************************************************//
+// DuplicatesAppExecutive.h - Executive for the DuplicatesApp. Orders and  //
+//							  Co-ordinates the functionality of all modules//
+// ver 1.0                                                                 //
+// ----------------------------------------------------------------------- //
+// copyleft © Ashok Bommisetti, 2015                                       //
+// No guarantees on anything; But free to modify, copy and distribute      //
+// ----------------------------------------------------------------------- //
+// Author:      Ashok Bommisetti							               //
+// First Published (mm-dd-yyyy): 02-11-2015 			                   //
+//*************************************************************************//
+
+/*
+* This is a part of Duplicates App, designed and developed to search and find duplicate files in the system.
+*
+*/
 #include "../Catalog/Catalog.h"
 #include "../FileManager/FileManager.h"
 #include "../Display/Display.h"
@@ -17,10 +33,6 @@ class DuplicatesAppExecutive {
 		void DuplicatesAppExecutive::recursiveSearchCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog fileCatalog );
 		void DuplicatesAppExecutive::noRecursiveSearchDuplicateCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog fileCatalog );
 		void DuplicatesAppExecutive::recursiveSearchDuplicateCall( FileDataStore fds,Display display,InputParser ip,DuplicatesAppExecutive dupAppExec,Catalog fileCatalog );
-		//Catalog setCatalog( Catalog& catalog ) { catalog_ = catalog; }
-
-	private:
-		//Catalog& catalog_;
-
+	
 };
 #endif // !DUPLICATESAPPEXECUTIVE_H
